@@ -1,5 +1,6 @@
 title: PMDM - Materiales del módulo
 theme: minima
+baseurl: "/pmdm-dam"
 
 # ===== Colecciones =====
 # Cada colección se trata como un conjunto de contenido propio,

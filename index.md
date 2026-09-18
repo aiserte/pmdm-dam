@@ -12,6 +12,6 @@ Materiales del módulo, organizados por unidad didáctica.
 <ul>
 {% assign unidades_ordenadas = site.unidades | sort: "unit" %}
 {% for unidad in unidades_ordenadas %}
-  <li><a href="{{ unidad.url }}">{{ unidad.title }}</a></li>
+  <li><a href="{{ unidad.url | relative_url }}">{{ unidad.title }}</a></li>
 {% endfor %}
 </ul>
