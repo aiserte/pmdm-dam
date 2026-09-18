@@ -1,0 +1,140 @@
+---
+---
+
+@import "minima";
+
+// ===== Paleta PMDM =====
+$color-primario:      #0F6E56; // verde teal - cabeceras, menú
+$color-primario-bg:   #E1F5EE; // fondo suave del primario
+$color-acento:        #534AB7; // violeta - enlaces, botones
+$color-acento-bg:     #EEEDFE; // fondo suave del acento
+$color-fondo:         #F1EFE8; // crema - fondo de página
+$color-texto:         #2C2C2A; // gris oscuro - cuerpo de texto
+$color-texto-secundario: #5F5E5A;
+$color-aviso:         #BA7517; // ámbar - avisos y ejercicios
+$color-aviso-bg:      #FAEEDA;
+$color-codigo-bg:     #0C3D2E; // fondo bloques de código
+$color-codigo-texto:  #9FE1CB;
+
+// ===== Base =====
+body {
+  background-color: $color-fondo;
+  color: $color-texto;
+}
+
+a {
+  color: $color-acento;
+
+  &:visited {
+    color: $color-acento; // evita el morado por defecto del navegador
+  }
+
+  &:hover,
+  &:visited:hover {
+    color: darken($color-acento, 10%);
+  }
+}
+
+// ===== Cabecera y navegación =====
+.site-header, .site-title, .site-title a {
+  background-color: $color-primario;
+  color: $color-primario-bg !important;
+}
+
+.site-nav .page-link {
+  color: $color-primario-bg;
+}
+
+h1, h2, h3 {
+  color: $color-primario;
+}
+
+// ===== Bloques de código =====
+pre, code {
+  background-color: $color-codigo-bg;
+  color: $color-codigo-texto;
+  border-radius: 8px;
+}
+
+// ===== Bloques de aviso / ejercicio =====
+// Uso: <div class="ejercicio"> ... </div>
+.ejercicio {
+  background-color: $color-aviso-bg;
+  border-left: 4px solid $color-aviso;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+
+  &::before {
+    content: "Ejercicio";
+    display: block;
+    font-weight: 600;
+    color: darken($color-aviso, 15%);
+    margin-bottom: 0.5rem;
+  }
+}
+
+// ===== Callouts de contenido =====
+// Uso: <div class="callout-info" markdown="1"> ... </div>
+.callout-info {
+  background-color: $color-primario-bg;
+  border-left: 4px solid $color-primario;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+
+  &::before {
+    content: "Info";
+    display: block;
+    font-weight: 600;
+    color: darken($color-primario, 10%);
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Uso: <div class="callout-warning" markdown="1"> ... </div>
+// Mismo estilo visual que .ejercicio, para avisos dentro de la teoría
+.callout-warning {
+  background-color: $color-aviso-bg;
+  border-left: 4px solid $color-aviso;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+
+  &::before {
+    content: "Atención";
+    display: block;
+    font-weight: 600;
+    color: darken($color-aviso, 15%);
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Uso: <div class="callout-practica" markdown="1"> ... </div>
+.callout-practica {
+  background-color: $color-acento-bg;
+  border-left: 4px solid $color-acento;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+
+  &::before {
+    content: "Pista";
+    display: block;
+    font-weight: 600;
+    color: darken($color-acento, 10%);
+    margin-bottom: 0.5rem;
+  }
+}
+
+// ===== Botones =====
+.btn {
+  background-color: $color-acento;
+  color: $color-acento-bg;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  display: inline-block;
+
+  &:hover { background-color: darken($color-acento, 8%); }
+}

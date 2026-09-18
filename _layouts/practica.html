@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<article class="practica">
+  <header class="practica-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.unidad %}
+      <p class="practica-meta"><strong>Unidad:</strong> {{ page.unidad }}</p>
+    {% endif %}
+    {% if page.tipo %}
+      <p class="practica-meta"><strong>Tipo:</strong> {{ page.tipo }}</p>
+    {% endif %}
+  </header>
+
+  {{ content }}
+</article>

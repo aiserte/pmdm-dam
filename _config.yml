@@ -1,0 +1,37 @@
+title: PMDM - Materiales del módulo
+theme: minima
+
+# ===== Colecciones =====
+# Cada colección se trata como un conjunto de contenido propio,
+# lo que permite listarlas automáticamente en index.md sin enlazar
+# cada página a mano.
+collections:
+  unidades:
+    output: true
+    permalink: /unidades/:name/
+  practicas:
+    output: true
+    permalink: /practicas/:name/
+
+# Valores por defecto para cada colección (evita repetir "layout: unidad"
+# en el front matter de cada fichero .md)
+defaults:
+  - scope:
+      path: ""
+      type: "unidades"
+    values:
+      layout: "unidad"
+  - scope:
+      path: ""
+      type: "practicas"
+    values:
+      layout: "practica"
+
+# Necesario para que GitHub Pages / Jekyll procesen bien el Sass
+sass:
+  style: compressed
+
+# Excluir del build ficheros que no queremos publicar
+exclude:
+  - README.md
+  - _notas-internas
