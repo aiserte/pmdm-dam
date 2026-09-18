@@ -6,7 +6,7 @@ Multimedia y Dispositivos Móviles (DAM), currículum Comunitat Valenciana.
 ## Estructura
 
 - `_config.yml` — configuración del sitio y declaración de colecciones.
-- `assets/css/style.scss` — paleta de colores propia, sobrescribe `minima`.
+- `assets/main.scss` — paleta de colores propia, sobrescribe `minima`.
 - `_layouts/unidad.html` — plantilla para las páginas de unidad didáctica.
 - `_layouts/practica.html` — plantilla para enunciados y soluciones de prácticas.
 - `_unidades/` — una página por unidad didáctica (UD0...UD7).
