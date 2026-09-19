@@ -1,0 +1,106 @@
+# _data/unidades.yml
+# Secuenciación oficial del módulo PMDM, según PMDM_presentacion_modulo.pptx
+# (sustituye la numeración UD0-UD7 del documento curricular inicial, obsoleta).
+# disponible: true cuando ya existe la página de la unidad en _unidades/.
+# bloque agrupa las unidades tal y como aparecen en la diapositiva 4 de la
+# presentación del módulo ("Así se organiza el módulo").
+
+- id: UD1
+  tipo: unidad
+  bloque: "Introducción"
+  titulo: "Tecnologías para dispositivos móviles"
+  resumen: "Panorama rápido de dispositivos móviles, hardware y limitaciones; nativo vs. multiplataforma, entornos y emuladores; estructura y ciclo de vida de una app."
+  ra: "RA1"
+  horas: 2
+  slug: ud1
+  disponible: false
+
+- id: UD2
+  tipo: unidad
+  bloque: "Introducción"
+  titulo: "Introducción a Kotlin y Android Studio"
+  resumen: "Repaso de POO desde Java, sintaxis de Kotlin (null-safety, data classes, funciones de extensión, lambdas, introducción a coroutines) e instalación de Android Studio."
+  ra: "Unidad puente (sin RA propio)"
+  horas: 12
+  slug: ud2
+  disponible: true
+
+- id: UD3
+  tipo: unidad
+  bloque: "RA1–RA2 · Aplicaciones"
+  titulo: "Interfaz de usuario con Jetpack Compose"
+  resumen: "Componentes @Composable, estado y recomposición, listas con LazyColumn/LazyRow, navegación, imágenes, eventos de entrada y DataStore."
+  ra: "RA2 (1/3)"
+  horas: 9
+  slug: ud3
+  disponible: false
+
+- id: UD4
+  tipo: unidad
+  bloque: "RA1–RA2 · Aplicaciones"
+  titulo: "Persistencia y almacenamiento"
+  resumen: "Bases de datos y almacenamiento en el dispositivo; persistencia de la información de la aplicación."
+  ra: "RA2 (2/3)"
+  horas: 7
+  slug: ud4
+  disponible: false
+
+- id: UD5
+  tipo: unidad
+  bloque: "RA1–RA2 · Aplicaciones"
+  titulo: "Conectividad, sensores y permisos"
+  resumen: "Tareas en segundo plano y servicios; seguridad y permisos; conectividad HTTP/HTTPS; sensores, posicionamiento y mapas."
+  ra: "RA2 (3/3, cierre del RA)"
+  horas: 9
+  slug: ud5
+  disponible: false
+
+- id: EX1
+  tipo: examen
+  bloque: "RA1–RA2 · Aplicaciones"
+  titulo: "Examen 1ª evaluación"
+  resumen: "Repaso y examen de RA1 y RA2 completos (tecnologías, interfaz, persistencia y conectividad)."
+  ra: "RA1 + RA2"
+  horas: 4
+  slug:
+  disponible: false
+
+- id: UD6
+  tipo: unidad
+  bloque: "RA3–RA5 · Multimedia y juegos"
+  titulo: "Contenidos multimedia"
+  resumen: "Conceptos y arquitectura de aplicaciones multimedia; fuentes de datos; procesamiento, reproducción y animación de objetos multimedia."
+  ra: "RA3"
+  horas: 14
+  slug: ud6
+  disponible: false
+
+- id: UD7
+  tipo: unidad
+  bloque: "RA3–RA5 · Multimedia y juegos"
+  titulo: "Motores de juegos"
+  resumen: "Animación 2D/3D y arquitectura del juego; tipos de motores; componentes y librerías 2D/3D; estudio y modificación de juegos existentes."
+  ra: "RA4"
+  horas: 10
+  slug: ud7
+  disponible: false
+
+- id: UD8
+  tipo: unidad
+  bloque: "RA3–RA5 · Multimedia y juegos"
+  titulo: "Desarrollo de juegos 2D/3D"
+  resumen: "Técnicas de programación 2D/3D, fases de desarrollo, materiales/físicas, audio, cámaras, iluminación, escenas y optimización."
+  ra: "RA5"
+  horas: 16
+  slug: ud8
+  disponible: false
+
+- id: EX2
+  tipo: examen
+  bloque: "RA3–RA5 · Multimedia y juegos"
+  titulo: "Examen 2ª evaluación"
+  resumen: "Repaso y examen de RA3, RA4 y RA5 (multimedia, motores de juegos y desarrollo de juegos). Cierre del módulo."
+  ra: "RA3 + RA4 + RA5"
+  horas: 4
+  slug:
+  disponible: false

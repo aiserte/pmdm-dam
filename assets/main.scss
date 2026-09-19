@@ -13,8 +13,16 @@ $color-texto:         #2C2C2A; // gris oscuro - cuerpo de texto
 $color-texto-secundario: #5F5E5A;
 $color-aviso:         #BA7517; // ámbar - avisos y ejercicios
 $color-aviso-bg:      #FAEEDA;
-$color-codigo-bg:     #0C3D2E; // fondo bloques de código
-$color-codigo-texto:  #9FE1CB;
+$color-codigo-bg:     #EEF6F2; // fondo bloques de código (verde-teal muy suave, sobre claro)
+$color-codigo-texto:  $color-texto; // mismo gris oscuro que el cuerpo de texto
+
+// Tokens de resaltado de sintaxis (Rouge), derivados de la propia paleta
+// para que el código siga la misma armonía violeta / verde / ámbar, ahora
+// con suficiente contraste sobre fondo claro.
+$color-codigo-clave:      $color-acento;               // palabras clave — violeta
+$color-codigo-cadena:     darken($color-aviso, 8%);    // cadenas y números — ámbar oscurecido
+$color-codigo-nombre:     darken($color-primario, 5%); // funciones, clases, etiquetas — teal
+$color-codigo-comentario: $color-texto-secundario;     // comentarios — gris apagado
 
 // ===== Base =====
 body {
@@ -24,15 +32,8 @@ body {
 
 a {
   color: $color-acento;
-
-  &:visited {
-    color: $color-acento; // evita el morado por defecto del navegador
-  }
-
-  &:hover,
-  &:visited:hover {
-    color: darken($color-acento, 10%);
-  }
+  &:visited { color: darken($color-acento, 20%); }
+  &:hover { color: darken($color-acento, 10%); }
 }
 
 // ===== Cabecera y navegación =====
@@ -41,8 +42,42 @@ a {
   color: $color-primario-bg !important;
 }
 
+// El título y el icono hamburguesa flotan los dos a la izquierda en móvil;
+// sin este hueco el icono (que pasa a ser position:absolute) queda encima
+// del texto del título.
+.site-title {
+  @include media-query($on-palm) {
+    padding-left: 56px;
+  }
+}
+
 .site-nav .page-link {
   color: $color-primario-bg;
+}
+
+// En pantallas pequeñas minima convierte el menú en un desplegable con SU
+// PROPIO fondo claro por defecto (#fdfdfd) — ahí el .page-link claro de
+// arriba (pensado para la cabecera teal) quedaba casi invisible. Le damos
+// al desplegable el mismo fondo teal que la cabecera y lo movemos, junto
+// con el icono hamburguesa, a la izquierda.
+.site-nav {
+  @include media-query($on-palm) {
+    left: $spacing-unit / 2;
+    right: auto;
+    text-align: left;
+    background-color: $color-primario;
+    border-color: $color-primario;
+
+    label[for="nav-trigger"] { float: left; }
+
+    .menu-icon {
+      float: left;
+
+      > svg { fill: $color-primario-bg; }
+    }
+    // .page-link ya hereda el color claro de la regla de arriba; con este
+    // fondo teal pasa a leerse bien.
+  }
 }
 
 h1, h2, h3 {
@@ -54,6 +89,25 @@ pre, code {
   background-color: $color-codigo-bg;
   color: $color-codigo-texto;
   border-radius: 8px;
+}
+
+// Rouge (el resaltador de sintaxis) pinta sus propios <span> por encima de
+// pre/code con colores pensados para fondo claro, así que hay que igualar
+// también el fondo de `.highlight` y recolorear sus tokens.
+.highlight {
+  background-color: $color-codigo-bg;
+
+  .c, .c1, .cm, .cp, .cs { color: $color-codigo-comentario; font-style: italic; } // comentarios
+  .err                    { color: $color-aviso; background: none; } // errores
+
+  .k, .kc, .kd, .kn, .kp, .kr, .kt, .ow, .nb, .bp { color: $color-codigo-clave; font-weight: 600; } // palabras clave / builtins
+
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sr, .sx, .ss,
+  .m, .mf, .mh, .mi, .mo, .il { color: $color-codigo-cadena; } // cadenas y números
+
+  .nf, .nc, .nn, .nx, .na, .nt { color: $color-codigo-nombre; } // funciones, clases, etiquetas
+
+  .o { color: $color-codigo-texto; } // operadores
 }
 
 // ===== Bloques de aviso / ejercicio =====
@@ -136,5 +190,233 @@ pre, code {
   text-decoration: none;
   display: inline-block;
 
+  &:visited { color: $color-acento-bg; }
   &:hover { background-color: darken($color-acento, 8%); }
+}
+
+// =====================================================================
+// ===== Portada del módulo (index.md) =====
+// Componentes para la portada con la secuenciación de unidades.
+// Reutilizan exclusivamente la paleta PMDM definida arriba.
+// =====================================================================
+
+// ----- Hero -----
+.modulo-hero {
+  background-color: $color-primario;
+  color: $color-primario-bg;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  margin: 1rem 0 2.5rem;
+  text-align: center;
+
+  &__kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    color: rgba($color-primario-bg, 0.85);
+    margin-bottom: 0.5rem;
+  }
+
+  &__titulo {
+    color: $color-primario-bg;
+    font-size: 3rem;
+    margin: 0;
+    line-height: 1;
+  }
+
+  &__subtitulo {
+    font-size: 1.25rem;
+    margin: 0.5rem 0 1rem;
+    color: $color-primario-bg;
+  }
+
+  &__profesora {
+    font-weight: 600;
+    color: $color-acento-bg;
+    background-color: rgba($color-acento, 0.35);
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  &__intro {
+    max-width: 46rem;
+    margin: 1.5rem auto 0;
+    color: $color-primario-bg;
+    text-align: left;
+  }
+
+  &__herramientas {
+    max-width: 46rem;
+    margin: 1rem auto 0;
+    color: $color-primario-bg;
+    text-align: left;
+
+    strong { color: #fff; }
+  }
+}
+
+.modulo-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+
+  .stat {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+    min-width: 8rem;
+
+    &__numero {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    &__etiqueta {
+      display: block;
+      font-size: 0.8rem;
+      color: $color-primario-bg;
+    }
+  }
+}
+
+// ----- Resultados de aprendizaje -----
+.ra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.ra-card {
+  background-color: $color-acento-bg;
+  border-top: 4px solid $color-acento;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+
+  &__id {
+    display: inline-block;
+    background-color: $color-acento;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.5rem;
+  }
+
+  &__titulo {
+    color: darken($color-acento, 5%);
+    font-size: 1rem;
+    margin: 0.25rem 0 0.4rem;
+  }
+
+  &__desc {
+    color: $color-texto-secundario;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+// ----- Secuencia de unidades, agrupada por bloque -----
+.secuencia-bloque {
+  margin-bottom: 2rem;
+
+  &__titulo {
+    color: $color-primario;
+    border-bottom: 2px solid $color-primario-bg;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.secuencia-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.unidad-card {
+  background-color: #fff;
+  border: 1px solid $color-primario-bg;
+  border-left: 5px solid $color-texto-secundario;
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+
+  &--disponible {
+    border-left-color: $color-primario;
+  }
+
+  &--examen {
+    background-color: $color-aviso-bg;
+    border-left-color: $color-aviso;
+  }
+
+  &__cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+  }
+
+  &__id {
+    font-weight: 700;
+    color: $color-primario;
+    letter-spacing: 0.03em;
+  }
+
+  .unidad-card--examen &__id {
+    color: darken($color-aviso, 15%);
+  }
+
+  &__horas {
+    font-size: 0.8rem;
+    color: $color-texto-secundario;
+  }
+
+  &__titulo {
+    margin: 0.2rem 0 0.3rem;
+    font-size: 1.05rem;
+    color: $color-texto;
+
+    a { color: $color-primario; }
+  }
+
+  &__ra {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-acento;
+    margin: 0 0 0.5rem;
+  }
+
+  &__resumen {
+    font-size: 0.9rem;
+    color: $color-texto-secundario;
+    margin: 0 0 0.75rem;
+    flex-grow: 1;
+  }
+
+  &__enlace {
+    align-self: flex-start;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  &__proximamente {
+    align-self: flex-start;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-texto-secundario;
+    background-color: $color-fondo;
+    border: 1px dashed $color-texto-secundario;
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+  }
 }

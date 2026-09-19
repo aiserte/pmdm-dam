@@ -11,7 +11,7 @@ duration: "2h"
 - Traducir clases, constructores, herencia e interfaces de Java a Kotlin.
 - Conocer las colecciones básicas de Kotlin (`List`, `MutableList`, `Map`).
 
-## 1. ¿Por qué Kotlin?
+## 1.1 ¿Por qué Kotlin?
 
 Kotlin es el lenguaje oficial recomendado por Google para el desarrollo Android desde 2019. Funciona sobre la misma máquina virtual que Java (JVM) y es 100% interoperable con código Java existente.
 
@@ -19,7 +19,7 @@ Kotlin es el lenguaje oficial recomendado por Google para el desarrollo Android 
 Todo lo que sabéis de clases, objetos, herencia y polimorfismo en Java sigue siendo válido en Kotlin. Hoy solo aprendemos a escribirlo de otra forma.
 </div>
 
-## 2. Clases y constructores
+## 1.2 Clases y constructores
 
 En Java, una clase típica separa atributos, constructor y getters/setters:
 
@@ -46,7 +46,7 @@ class Dispositivo(var modelo: String, val anioLanzamiento: Int)
 
 Con `var` la propiedad es mutable; con `val` es de solo lectura (equivalente a un atributo `final`). En Android, preferimos `val` siempre que sea posible.
 
-## 3. Herencia
+## 1.3 Herencia
 
 Diferencia clave: en Kotlin, las clases son `final` por defecto. Para permitir que se hereden, hay que marcarlas con `open`.
 
@@ -112,7 +112,7 @@ class Coche extends Vehiculo {
 En Kotlin, la llamada al constructor de la superclase (equivalente al <code>super(marca)</code> de Java) se hace en la cabecera de la clase — <code>: Vehiculo(marca)</code> —, no como una instrucción dentro del cuerpo del constructor. <code>override</code>, en cambio, sí es obligatorio: si se os olvida, el compilador da error, a diferencia de la anotación <code>@Override</code> de Java, que es opcional.
 </div>
 
-## 4. La clase Any
+## 1.4 La clase Any
 
 Toda clase en Kotlin hereda implícitamente de `Any` cuando no se indica una superclase explícita, igual que en Java toda clase hereda de `Object`. Es la raíz de la jerarquía de tipos.
 
@@ -129,7 +129,7 @@ println(d1.toString())   // usa la implementación por defecto de Any
 <code>Any</code> es la raíz de la jerarquía de clases en Kotlin, igual que <code>Object</code> en Java. En la sesión 2 veremos por qué <code>data class</code> os libera de reescribir <code>equals()</code>, <code>hashCode()</code> y <code>toString()</code>: son, precisamente, los métodos que define <code>Any</code>.
 </div>
 
-## 5. Interfaces
+## 1.5 Interfaces
 
 Las interfaces en Kotlin pueden tener métodos con implementación por defecto:
 
@@ -144,7 +144,7 @@ class Altavoz : Sonable {
 }
 ```
 
-## 6. Colecciones
+## 1.6 Colecciones
 
 Kotlin distingue entre colecciones de solo lectura y mutables:
 
@@ -158,7 +158,7 @@ val carrito = mutableListOf<String>()
 carrito.add("Pixel")
 ```
 
-## 7. Arrays
+## 1.7 Arrays
 
 En Kotlin, a diferencia de Java, el array no es la estructura por defecto: se usa `List`/`MutableList` para casi todo, y `Array` queda reservado para interoperar con APIs Java que lo exigen, o para primitivos, donde `IntArray` evita el coste de autoboxing que sí tiene `List<Int>`.
 
@@ -179,7 +179,7 @@ val modelosList = listOf("Pixel", "Galaxy", "iPhone")   // preferible salvo inte
 Cuidado con la confusión: el tamaño de un <code>Array</code>, igual que el de una <code>List</code> (no Mutable), es fijo. Lo que cambia entre <code>Array</code> y <code>List</code> no es la mutabilidad de tamaño, sino cuándo conviene usar cada uno: <code>Array</code> casi solo para interoperar con Java o para primitivos.
 </div>
 
-## 8. Tabla resumen de equivalencias
+## 1.8 Tabla resumen de equivalencias
 
 | Concepto | Java | Kotlin |
 |---|---|---|

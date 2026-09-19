@@ -12,7 +12,7 @@ duration: "2h"
 - Ejecutar código solo cuando un valor no es `null` con `?.let { }`, y convertir tipos de forma segura con `as?`.
 - Sustituir POJOs de Java por `data class` y entender qué genera automáticamente, incluida la igualdad estructural.
 
-## 1. El problema del NullPointerException
+## 2.1 El problema del NullPointerException
 
 En Java, cualquier variable de tipo referencia puede valer `null` en cualquier momento, y el compilador no avisa. El típico `NullPointerException` —la "excepción del billón de dólares", como la llamó su propio inventor, Tony Hoare— aparece en tiempo de ejecución, normalmente en el peor momento.
 
@@ -29,7 +29,7 @@ var apodo: String? = null   // OK: el ? permite null
 La diferencia clave con <code>Optional&lt;T&gt;</code>: en Kotlin la nulabilidad forma parte del tipo (<code>String</code> frente a <code>String?</code>), así que el compilador os avisa en el momento de escribir el código, no en tiempo de ejecución.
 </div>
 
-## 2. Trabajar con tipos nullable
+## 2.2 Trabajar con tipos nullable
 
 Una vez que una variable es nullable (`String?`), el compilador os obliga a comprobarlo antes de usarla. Para eso existen varios operadores:
 
@@ -58,7 +58,7 @@ Regla de oro en este módulo: evitad <code>!!</code> salvo que estéis absolutam
 | Valor por defecto si es `null` | `x != null ? x : def` (ternario) | `x ?: def` |
 | Afirmar "sé que no es null" | Cast implícito, sin aviso del compilador | `x!!` (explícito, lanza NPE si os equivocáis) |
 
-## 3. Elvis con salida temprana: `?: return` / `?: throw`
+## 2.3 Elvis con salida temprana: `?: return` / `?: throw`
 
 El operador `?:` no solo sirve para dar un valor por defecto: a su derecha puede ir cualquier expresión, incluida una que corte el flujo de la función. Es un idioma muy habitual para validar parámetros al principio de una función:
 
@@ -78,7 +78,7 @@ fun cargarUsuario(id: String?): String {
 }
 ```
 
-## 4. Ejecutar código solo si no es null: `?.let { }`
+## 2.4 Ejecutar código solo si no es null: `?.let { }`
 
 `let` es una *función de ámbito* (scope function) de Kotlin: recibe el objeto sobre el que se llama como `it` y ejecuta el bloque que le paséis. Combinada con `?.`, es la forma idiomática de "haz esto solo si el valor no es null":
 
@@ -96,7 +96,7 @@ Si `apodo` fuese `null`, el bloque `{ ... }` simplemente no se ejecuta: no hace 
 En Android vais a ver <code>?.let { }</code> constantemente para ejecutar código de interfaz solo cuando un dato ha llegado —por ejemplo, la respuesta de una petición de red—. Kotlin tiene más funciones de ámbito (<code>also</code>, <code>apply</code>, <code>run</code>, <code>with</code>); de momento solo necesitáis <code>let</code>.
 </div>
 
-## 5. Conversión segura de tipos: `as?`
+## 2.5 Conversión segura de tipos: `as?`
 
 Igual que `?.` es la versión seguriza de acceder a una propiedad, `as?` es la versión segura del cast `as`: si la conversión no es posible, devuelve `null` en lugar de lanzar una excepción.
 
@@ -107,7 +107,7 @@ val texto: String? = obj as? String     // "Hola": el cast sí es válido
 val numero: Int? = obj as? Int          // null: el cast falla, sin excepción
 ```
 
-## 6. data class: adiós a los POJOs manuales
+## 2.6 data class: adiós a los POJOs manuales
 
 En Java, una clase de datos sencilla (un POJO) obliga a escribir a mano `equals()`, `hashCode()`, `toString()` y, a veces, un método para copiar. En Kotlin, con la palabra clave `data`, todo eso se genera automáticamente:
 
@@ -125,7 +125,7 @@ Con esa única declaración, Kotlin genera para vosotros:
 - `copy()` — crea una copia del objeto cambiando solo algunos campos: `usuario.copy(telefono = "600123456")`.
 - `componentN()` — permite la desestructuración: `val (nombre, tel) = usuario`.
 
-## 7. Igualdad estructural: `==` frente a `===`
+## 2.7 Igualdad estructural: `==` frente a `===`
 
 En Java, `==` sobre objetos compara referencias (si son el mismo objeto en memoria), y hay que llamar a `.equals()` explícitamente para comparar contenido. En Kotlin es al revés por defecto:
 
@@ -145,7 +145,7 @@ fun main() {
 Cuidado con la confusión si venís de Java: en Kotlin, <code>==</code> compara <strong>contenido</strong> (llama a <code>equals()</code>) y <code>===</code> compara <strong>referencia</strong> (es el equivalente al <code>==</code> de Java sobre objetos). Con una <code>data class</code>, <code>equals()</code> ya viene generado automáticamente comparando todas sus propiedades.
 </div>
 
-## 8. Ejemplo práctico: de Java a Kotlin
+## 2.8 Ejemplo práctico: de Java a Kotlin
 
 Partiendo de esta clase Java:
 
@@ -171,7 +171,7 @@ fun mostrarTelefono(u: Usuario) {
 }
 ```
 
-## 9. Tabla resumen de equivalencias
+## 2.9 Tabla resumen de equivalencias
 
 | Concepto | Java | Kotlin |
 |---|---|---|
