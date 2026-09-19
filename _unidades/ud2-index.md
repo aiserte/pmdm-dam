@@ -1,5 +1,5 @@
 ---
-layout: unidad.html
+layout: unidad
 title: "UD2 · Introducción a Kotlin y Android Studio"
 unit: UD2
 permalink: /unidades/ud2/
@@ -19,6 +19,7 @@ Unidad puente, sin resultado de aprendizaje evaluado de forma independiente, per
 ## Prácticas por sesión
 
 - Sesión 1 (Repaso de POO): [Flota de alquiler — enunciado]({{ '/practicas/ud2-sesion1-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion1-practica-solucion/' | relative_url }})
+- Sesión 2 (Null-safety y data classes): [Soporte técnico — enunciado]({{ '/practicas/ud2-sesion2-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion2-practica-solucion/' | relative_url }})
 
 ## Práctica de cierre
 
