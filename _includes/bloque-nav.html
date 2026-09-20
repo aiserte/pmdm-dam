@@ -1,0 +1,71 @@
+{%- comment -%}
+Navegación "Anterior / Siguiente" entre los bloques de contenido de una
+misma unidad (por ejemplo, entre "1. Repaso de POO" y "2. Null-safety y
+data classes" dentro de UD2). Colocar al final del layout que renderiza
+los bloques, con:
+
+  {% include bloque-nav.html %}
+
+Requiere que cada bloque tenga en su front matter:
+  unit:  "UD2"    # identificador de la unidad (igual que en _data/unidades.yml)
+  order: 2        # posición del bloque dentro de la unidad (1, 2, 3...)
+  title: "..."    # título del bloque, tal cual se quiere mostrar en la flecha
+
+Y que esos bloques sean documentos de la colección `unidades` (carpeta
+_unidades/). Si tu colección tiene otro nombre, cambia "site.unidades"
+más abajo por el nombre correcto.
+{%- endcomment -%}
+
+{%- assign bloques = site.unidades | where: "unit", page.unit | where_exp: "b", "b.order" | sort: "order" -%}
+{%- assign total = bloques | size -%}
+
+{%- assign indice_actual = -1 -%}
+{%- for b in bloques -%}
+  {%- if b.url == page.url -%}
+    {%- assign indice_actual = forloop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if indice_actual > -1 -%}
+{%- assign unidad_slug = page.unit | downcase -%}
+<nav class="bloque-nav" aria-label="Navegación entre bloques de la unidad">
+  {%- if indice_actual > 0 -%}
+    {%- assign anterior = bloques[indice_actual | minus: 1] -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--prev" href="{{ anterior.url | relative_url }}">
+      <span class="bloque-nav__flecha">←</span>
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Anterior</span>
+        {{ anterior.order }}. {{ anterior.title }}
+      </span>
+    </a>
+  {%- else -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--prev" href="{{ '/unidades/' | append: unidad_slug | append: '/' | relative_url }}">
+      <span class="bloque-nav__flecha">←</span>
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Volver a</span>
+        {{ page.unit }}
+      </span>
+    </a>
+  {%- endif -%}
+
+  {%- assign ultimo_indice = total | minus: 1 -%}
+  {%- if indice_actual < ultimo_indice -%}
+    {%- assign siguiente = bloques[indice_actual | plus: 1] -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--next" href="{{ siguiente.url | relative_url }}">
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Siguiente</span>
+        {{ siguiente.order }}. {{ siguiente.title }}
+      </span>
+      <span class="bloque-nav__flecha">→</span>
+    </a>
+  {%- else -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--next" href="{{ '/unidades/' | append: unidad_slug | append: '/' | relative_url }}">
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Volver a</span>
+        {{ page.unit }}
+      </span>
+      <span class="bloque-nav__flecha">→</span>
+    </a>
+  {%- endif -%}
+</nav>
+{%- endif -%}

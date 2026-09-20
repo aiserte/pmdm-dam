@@ -12,5 +12,14 @@ layout: default
     {% endif %}
   </header>
 
-  {{ content }}
+  {%- if page.tipo == "solucion" and page.disponible == false -%}
+    <div class="solucion-bloqueada">
+      <p><strong>Solución todavía no disponible.</strong></p>
+      <p>Se publicará más adelante, cuando corresponda en el calendario de la asignatura.</p>
+    </div>
+  {%- else -%}
+    {{ content }}
+  {%- endif -%}
+
+  {% include practica-nav.html %}
 </article>

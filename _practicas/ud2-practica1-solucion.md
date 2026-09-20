@@ -1,8 +1,10 @@
 ---
 title: "Catálogo de dispositivos — Solución"
-unit: UD2
+unidad: UD2
 practica: 1
+orden: 3
 tipo: solucion
+disponible: true
 ---
 
 ## Solución de referencia

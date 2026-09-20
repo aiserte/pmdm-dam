@@ -1,7 +1,8 @@
 ---
 title: "Soporte técnico — Enunciado (Sesión 2)"
-unit: UD2
+unidad: UD2
 sesion: 2
+orden: 2
 tipo: enunciado
 ---
 

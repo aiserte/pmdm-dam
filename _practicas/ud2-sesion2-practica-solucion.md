@@ -1,8 +1,10 @@
 ---
 title: "Soporte técnico — Solución (Sesión 2)"
-unit: UD2
+unidad: UD2
 sesion: 2
+orden: 2
 tipo: solucion
+disponible: true
 ---
 
 ## Solución de referencia

@@ -13,7 +13,7 @@
   ra: "RA1"
   horas: 2
   slug: ud1
-  disponible: false
+  disponible: true
 
 - id: UD2
   tipo: unidad

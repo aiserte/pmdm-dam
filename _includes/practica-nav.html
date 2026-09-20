@@ -1,0 +1,71 @@
+{%- comment -%}
+Navegación "Anterior / Siguiente" entre los ENUNCIADOS de las prácticas de
+una misma unidad (por ejemplo, entre la práctica de la sesión 1 y la de la
+sesión 2 de UD2). Se incluye automáticamente desde _layouts/practica.html;
+en una página de solución (page.tipo == "solucion") no imprime nada, porque
+esa página no forma parte de la lista de enunciados que se recorre abajo.
+
+Requiere que cada práctica-enunciado tenga en su front matter:
+  unidad: "UD2"    # igual que el campo que ya usa _layouts/practica.html
+  tipo:   "enunciado"
+  orden:  1         # posición de la práctica dentro de la unidad (1, 2, 3...)
+  title:  "..."     # título a mostrar en la flecha
+
+Y que esas prácticas sean documentos de la colección `practicas` (carpeta
+_practicas/). Si tu colección tiene otro nombre, cambia "site.practicas"
+más abajo por el nombre correcto — dímelo y lo ajusto yo.
+{%- endcomment -%}
+
+{%- assign enunciados = site.practicas | where: "tipo", "enunciado" | where: "unidad", page.unidad | where_exp: "p", "p.orden" | sort: "orden" -%}
+{%- assign total = enunciados | size -%}
+
+{%- assign indice_actual = -1 -%}
+{%- for p in enunciados -%}
+  {%- if p.url == page.url -%}
+    {%- assign indice_actual = forloop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if indice_actual > -1 -%}
+{%- assign unidad_slug = page.unidad | downcase -%}
+<nav class="bloque-nav" aria-label="Navegación entre enunciados de prácticas">
+  {%- if indice_actual > 0 -%}
+    {%- assign anterior = enunciados[indice_actual | minus: 1] -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--prev" href="{{ anterior.url | relative_url }}">
+      <span class="bloque-nav__flecha">←</span>
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Práctica anterior</span>
+        {{ anterior.orden }}. {{ anterior.title }}
+      </span>
+    </a>
+  {%- else -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--prev" href="{{ '/unidades/' | append: unidad_slug | append: '/' | relative_url }}">
+      <span class="bloque-nav__flecha">←</span>
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Volver a</span>
+        {{ page.unidad }}
+      </span>
+    </a>
+  {%- endif -%}
+
+  {%- assign ultimo_indice = total | minus: 1 -%}
+  {%- if indice_actual < ultimo_indice -%}
+    {%- assign siguiente = enunciados[indice_actual | plus: 1] -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--next" href="{{ siguiente.url | relative_url }}">
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Práctica siguiente</span>
+        {{ siguiente.orden }}. {{ siguiente.title }}
+      </span>
+      <span class="bloque-nav__flecha">→</span>
+    </a>
+  {%- else -%}
+    <a class="bloque-nav__enlace bloque-nav__enlace--next" href="{{ '/unidades/' | append: unidad_slug | append: '/' | relative_url }}">
+      <span class="bloque-nav__texto">
+        <span class="bloque-nav__etiqueta">Volver a</span>
+        {{ page.unidad }}
+      </span>
+      <span class="bloque-nav__flecha">→</span>
+    </a>
+  {%- endif -%}
+</nav>
+{%- endif -%}
