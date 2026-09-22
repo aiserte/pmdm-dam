@@ -30,7 +30,8 @@ más abajo por el nombre correcto.
 {%- assign unidad_slug = page.unit | downcase -%}
 <nav class="bloque-nav" aria-label="Navegación entre bloques de la unidad">
   {%- if indice_actual > 0 -%}
-    {%- assign anterior = bloques[indice_actual | minus: 1] -%}
+    {%- assign indice_anterior = indice_actual | minus: 1 -%}
+    {%- assign anterior = bloques[indice_anterior] -%}
     <a class="bloque-nav__enlace bloque-nav__enlace--prev" href="{{ anterior.url | relative_url }}">
       <span class="bloque-nav__flecha">←</span>
       <span class="bloque-nav__texto">
@@ -50,7 +51,8 @@ más abajo por el nombre correcto.
 
   {%- assign ultimo_indice = total | minus: 1 -%}
   {%- if indice_actual < ultimo_indice -%}
-    {%- assign siguiente = bloques[indice_actual | plus: 1] -%}
+    {%- assign indice_siguiente = indice_actual | plus: 1 -%}
+    {%- assign siguiente = bloques[indice_siguiente] -%}
     <a class="bloque-nav__enlace bloque-nav__enlace--next" href="{{ siguiente.url | relative_url }}">
       <span class="bloque-nav__texto">
         <span class="bloque-nav__etiqueta">Siguiente</span>
