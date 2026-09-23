@@ -100,6 +100,88 @@ Una app siempre se encuentra en uno de estos tres **estados**:
 
 A lo largo de su existencia, una app pasa por las siguientes fases de su **ciclo de vida**: descubrimiento (tienda de apps), instalación, ejecución, actualización y borrado. El sistema operativo gestiona automáticamente estas transiciones mediante su entorno de ejecución del administrador de aplicaciones, responsable también de instalar, actualizar, desinstalar y gestionar permisos.
 
+<figure class="diagrama-ciclo-vida">
+<svg viewBox="0 0 900 520" role="img" aria-labelledby="ciclovida-titulo ciclovida-desc" style="width:100%;height:auto;font-family:Helvetica,Arial,sans-serif;">
+  <title id="ciclovida-titulo">Ciclo de vida de una aplicación móvil</title>
+  <desc id="ciclovida-desc">Cinco fases en secuencia -Descubrimiento, Instalación, Ejecución, Actualización y Borrado-, con la actualización volviendo a la ejecución; durante la ejecución, la app alterna entre los estados Activa y En pausa hasta que finalmente pasa a Destruida.</desc>
+
+  <defs>
+    <marker id="fl-acento" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#534AB7"></path>
+    </marker>
+    <marker id="fl-aviso" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#BA7517"></path>
+    </marker>
+    <marker id="fl-primario" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0F6E56"></path>
+    </marker>
+  </defs>
+
+  <!-- Actualización vuelve a Ejecución (detrás de las cajas, para que no tape el texto) -->
+  <path d="M 645 70 C 645 20, 460 20, 460 66" fill="none" stroke="#534AB7" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#fl-acento)"></path>
+  <text x="552" y="16" text-anchor="middle" font-size="12" fill="#5F5E5A">vuelve a ejecutarse</text>
+
+  <!-- ===== Fila superior: fases del ciclo de vida ===== -->
+  <!-- Descubrimiento -->
+  <rect x="15" y="70" width="150" height="64" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"></rect>
+  <text x="90" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#0F6E56">Descubrimiento</text>
+
+  <!-- Instalación -->
+  <rect x="200" y="70" width="150" height="64" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"></rect>
+  <text x="275" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#0F6E56">Instalación</text>
+
+  <!-- Ejecución (destacada) -->
+  <rect x="385" y="70" width="150" height="64" rx="10" fill="#0F6E56" stroke="#0F6E56" stroke-width="2"></rect>
+  <text x="460" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#E1F5EE">Ejecución</text>
+
+  <!-- Actualización -->
+  <rect x="570" y="70" width="150" height="64" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"></rect>
+  <text x="645" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#0F6E56">Actualización</text>
+
+  <!-- Borrado -->
+  <rect x="755" y="70" width="130" height="64" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2"></rect>
+  <text x="820" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#0F6E56">Borrado</text>
+
+  <!-- Flechas entre fases -->
+  <line x1="165" y1="102" x2="196" y2="102" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+  <line x1="350" y1="102" x2="381" y2="102" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+  <line x1="535" y1="102" x2="566" y2="102" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+  <line x1="720" y1="102" x2="751" y2="102" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+
+  <!-- Conector de Ejecución al detalle de estados -->
+  <line x1="460" y1="134" x2="460" y2="170" stroke="#0F6E56" stroke-width="2.5" marker-end="url(#fl-primario)"></line>
+
+  <!-- ===== Panel inferior: estados durante la ejecución ===== -->
+  <rect x="60" y="180" width="780" height="320" rx="14" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="6 5"></rect>
+  <text x="90" y="208" font-size="13" font-weight="700" fill="#5F5E5A">MIENTRAS LA APP ESTÁ EN EJECUCIÓN: TRES ESTADOS POSIBLES</text>
+
+  <!-- Activa -->
+  <circle cx="300" cy="340" r="80" fill="#E1F5EE" stroke="#0F6E56" stroke-width="2.5"></circle>
+  <text x="300" y="334" text-anchor="middle" font-size="17" font-weight="700" fill="#0F6E56">Activa</text>
+  <text x="300" y="356" text-anchor="middle" font-size="12" fill="#2C2C2A">primer plano,</text>
+  <text x="300" y="372" text-anchor="middle" font-size="12" fill="#2C2C2A">interactuando</text>
+
+  <!-- En pausa -->
+  <circle cx="600" cy="340" r="80" fill="#EEEDFE" stroke="#534AB7" stroke-width="2.5"></circle>
+  <text x="600" y="334" text-anchor="middle" font-size="17" font-weight="700" fill="#534AB7">En pausa</text>
+  <text x="600" y="356" text-anchor="middle" font-size="12" fill="#2C2C2A">visible, sin</text>
+  <text x="600" y="372" text-anchor="middle" font-size="12" fill="#2C2C2A">el foco</text>
+
+  <!-- Activa <-> En pausa -->
+  <line x1="382" y1="326" x2="518" y2="326" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+  <line x1="518" y1="354" x2="382" y2="354" stroke="#534AB7" stroke-width="2.5" marker-end="url(#fl-acento)"></line>
+
+  <!-- Destruida -->
+  <ellipse cx="450" cy="472" rx="95" ry="20" fill="#FAEEDA" stroke="#BA7517" stroke-width="2.5"></ellipse>
+  <text x="450" y="478" text-anchor="middle" font-size="15" font-weight="700" fill="#8F5B12">Destruida</text>
+
+  <!-- Activa -> Destruida / En pausa -> Destruida -->
+  <line x1="330" y1="412" x2="410" y2="458" stroke="#BA7517" stroke-width="2.5" marker-end="url(#fl-aviso)"></line>
+  <line x1="570" y1="412" x2="490" y2="458" stroke="#BA7517" stroke-width="2.5" marker-end="url(#fl-aviso)"></line>
+</svg>
+<figcaption>Ciclo de vida de una app: cinco fases (arriba) y, dentro de la fase de ejecución, los tres estados posibles (abajo).</figcaption>
+</figure>
+
 ## 1.11 Por qué Kotlin + Jetpack Compose en este módulo
 
 Con el panorama anterior ya podemos justificar la elección técnica del módulo:
