@@ -2,13 +2,13 @@
 title: "Catálogo de dispositivos — Enunciado"
 unidad: UD2
 practica: 1
-orden: 3
+orden: 6
 tipo: enunciado
 ---
 
 ## Contexto
 
-Práctica guiada de cierre de la UD2. No introduce contenido nuevo: es una consolidación de los cinco bloques de la unidad. El objetivo es salir con un pequeño proyecto Compose funcionando y confianza en el flujo básico de Android Studio, antes de entrar en la UD3.
+Práctica guiada de cierre de la UD2. No introduce contenido nuevo: es una consolidación de los bloques de la unidad. El objetivo es salir con un pequeño proyecto Compose funcionando y confianza en el flujo básico de Android Studio, antes de entrar en la UD3.
 
 ## Enunciado
 

@@ -1,7 +1,7 @@
 ---
 title: "Introducción ligera a coroutines"
 unit: UD2
-order: 4
+order: 5
 duration: "2h"
 ---
 
@@ -58,4 +58,4 @@ Ejercicio de consolidación: sobre la <code>data class Usuario</code>, añade un
 
 ## Para la próxima sesión
 
-Bloque 5: instalación de Android Studio y primer proyecto — pasamos de la teoría al entorno de desarrollo real.
+Sesión 6: práctica de cierre de la unidad (*Catálogo de dispositivos*), antes de entrar de lleno en la UD3.

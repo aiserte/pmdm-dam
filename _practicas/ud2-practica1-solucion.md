@@ -2,7 +2,7 @@
 title: "Catálogo de dispositivos — Solución"
 unidad: UD2
 practica: 1
-orden: 3
+orden: 6
 tipo: solucion
 disponible: true
 ---

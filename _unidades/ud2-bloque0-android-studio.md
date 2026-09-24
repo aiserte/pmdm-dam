@@ -1,8 +1,7 @@
 ---
 title: "Instalación y primer proyecto en Android Studio"
 unit: UD2
-order: 5
-duration: "2h"
+order: 0
 ---
 
 ## Objetivos
@@ -65,4 +64,4 @@ class MainActivity : ComponentActivity() {
 
 ## Para la próxima sesión
 
-Bloque 6 (práctica de cierre): un mini-proyecto guiado que combina todo lo visto en esta unidad antes de entrar de lleno en la UD3.
+Sesión 1: repaso de programación orientada a objetos desde Java (clases, herencia, interfaces, colecciones), antes de entrar en la sintaxis propia de Kotlin.
