@@ -3,7 +3,7 @@ layout: unidad
 title: "UD2 · Introducción a Kotlin y Android Studio"
 unit: UD2
 permalink: /unidades/ud2/
-duration: "12h"
+duration: "10h"
 ---
 
 Unidad puente, sin resultado de aprendizaje evaluado de forma independiente, pero imprescindible como base para el resto del módulo: aquí ponemos a punto el lenguaje (Kotlin) y la herramienta (Android Studio) que usaremos durante todo PMDM.
@@ -15,7 +15,7 @@ Unidad puente, sin resultado de aprendizaje evaluado de forma independiente, per
 2. [Null-safety y data classes]({{ '/unidades/ud2-bloque2-null-safety-data-class/' | relative_url }}) — 2h
 3. [Funciones de extensión y lambdas]({{ '/unidades/ud2-bloque3-extension-lambdas/' | relative_url }}) — 2h
 4. [Funciones de extensión y lambdas (consolidación)]({{ '/unidades/ud2-bloque4-consolidacion-extension-lambdas/' | relative_url }}) — 2h
-5. [Introducción ligera a coroutines]({{ '/unidades/ud2-bloque5-coroutines-intro/' | relative_url }}) — 2h
+5. [Introducción ligera a coroutines]({{ '/unidades/ud2-bloque5-coroutines/' | relative_url }}) — 30-45 min (el resto de la Sesión 5 es práctica de consolidación)
 
 ## Prácticas por sesión
 
@@ -23,8 +23,11 @@ Unidad puente, sin resultado de aprendizaje evaluado de forma independiente, per
 - Sesión 2 (Null-safety y data classes): [Soporte técnico — enunciado]({{ '/practicas/ud2-sesion2-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion2-practica-solucion/' | relative_url }})
 - Sesión 3 (Funciones de extensión y lambdas): [Soporte técnico: extensión y lambdas — enunciado]({{ '/practicas/ud2-sesion3-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion3-practica-solucion/' | relative_url }})
 - Sesión 4 (Funciones de extensión y lambdas, consolidación): [Playlist — enunciado]({{ '/practicas/ud2-sesion4-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion4-practica-solucion/' | relative_url }})
+- Sesión 5 (Coroutines ligeras + consolidación de la unidad): [Biblioteca de barrio — enunciado]({{ '/practicas/ud2-sesion5-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud2-sesion5-practica-solucion/' | relative_url }})
 
-## Práctica de cierre (Sesión 6)
+## Trabajo autónomo: primer proyecto Compose
+
+Esta práctica no tiene ya una sesión de aula dedicada: se propone al alumnado durante la Sesión 5, para terminarla en casa antes de empezar la UD3 (Jetpack Compose).
 
 - [Catálogo de dispositivos — enunciado]({{ '/practicas/ud2-practica1-enunciado/' | relative_url }})
 - [Catálogo de dispositivos — solución]({{ '/practicas/ud2-practica1-solucion/' | relative_url }})

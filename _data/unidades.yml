@@ -19,9 +19,9 @@
   tipo: unidad
   bloque: "Introducción"
   titulo: "Introducción a Kotlin y Android Studio"
-  resumen: "Repaso de POO desde Java, sintaxis de Kotlin (null-safety, data classes, funciones de extensión, lambdas, introducción a coroutines) e instalación de Android Studio."
+  resumen: "Repaso de POO desde Java, sintaxis de Kotlin (null-safety, data classes, funciones de extensión, lambdas, introducción ligera a coroutines) e instalación de Android Studio."
   ra: "Unidad puente (sin RA propio)"
-  horas: 12
+  horas: 10
   slug: ud2
   disponible: true
 
@@ -31,7 +31,7 @@
   titulo: "Interfaz de usuario con Jetpack Compose"
   resumen: "Componentes @Composable, estado y recomposición, listas con LazyColumn/LazyRow, navegación, imágenes, eventos de entrada y DataStore."
   ra: "RA2 (1/3)"
-  horas: 9
+  horas: 11
   slug: ud3
   disponible: false
 

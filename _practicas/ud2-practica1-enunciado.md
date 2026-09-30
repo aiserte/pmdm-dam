@@ -8,7 +8,7 @@ tipo: enunciado
 
 ## Contexto
 
-Práctica guiada de cierre de la UD2. No introduce contenido nuevo: es una consolidación de los bloques de la unidad. El objetivo es salir con un pequeño proyecto Compose funcionando y confianza en el flujo básico de Android Studio, antes de entrar en la UD3.
+Práctica de consolidación de la UD2, propuesta como **trabajo autónomo**: se presenta durante la Sesión 5 (junto con la introducción ligera a coroutines) y se termina en casa, sin una sesión de aula dedicada. No introduce contenido nuevo: es una consolidación de los bloques de la unidad. El objetivo es salir con un pequeño proyecto Compose funcionando y confianza en el flujo básico de Android Studio, antes de entrar en la UD3.
 
 ## Enunciado
 
@@ -29,5 +29,5 @@ Crea un proyecto Compose ("Empty Activity") que muestre en pantalla, con `Text()
 - El código sigue las convenciones vistas en la unidad (`val` por defecto, nombres en camelCase, sin `!!` innecesarios).
 
 <div class="callout-info">
-Tienes 1h25 de trabajo autónomo o en parejas. Los últimos 20 minutos de la sesión se dedican a que 2-3 compañeros muestren su pantalla y se comenten alternativas.
+Al no tener sesión de aula asignada, no hay reparto de tiempo en clase: resuélvela con calma en casa y tráela lista para el primer día de la UD3. Si os atascáis, plantead las dudas al empezar esa sesión antes de avanzar con contenido nuevo.
 </div>
