@@ -53,7 +53,7 @@ Añade la librería `lifecycle-viewmodel-compose` al catálogo `gradle/libs.vers
 
 ### Ejercicio 5 — Estado de la interfaz y `ViewModel`
 
-Crea el paquete `ui/carta` (ya existe) con dos ficheros nuevos:
+Crea en el paquete `ui/carta` dos ficheros nuevos:
 
 1. `PedidoUiState.kt`: una `data class PedidoUiState` con todo el estado del pedido que antes estaba en `PantallaCarta` (cantidades, nombre, para llevar, avisar, intento de confirmar, diálogo visible) **más** la categoría seleccionada (`Categoria?`, `null` = todas). Todos los campos con valor por defecto.
 2. `PedidoViewModel.kt`: una clase `PedidoViewModel : ViewModel()` con:

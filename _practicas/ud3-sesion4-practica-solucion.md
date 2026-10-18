@@ -459,7 +459,7 @@ El import de `DatosCarta` ya no hace falta en `MainActivity`: ahora es el `ViewM
 | # | Prueba | Resultado esperado | Resultado obtenido |
 |---|---|---|---|
 | P4-1 | Desplazar la carta completa | Se llega a todo | OK en vertical y en horizontal |
-| P4-2 | Abrir y girar dos veces | "PedidoViewModel creado" una sola vez | OK: `onCreate` (CicloVida) → "PedidoViewModel creado" (PedidoVM); en cada giro, `onPause` … `onDestroy` → `onCreate` … `onResume`, sin un nuevo "creado" ni "destruido" |
+| P4-2 | Abrir y girar dos veces | "PedidoViewModel creado" una sola vez | OK: `onCreate` → `onStart` → `onResume` (CicloVida) → "PedidoViewModel creado" (PedidoVM), porque el `ViewModel` se pide al componer la interfaz, que ocurre cuando la ventana ya es visible; en cada giro, `onPause` … `onDestroy` → `onCreate` … `onResume`, sin un nuevo "creado" ni "destruido" |
 | P4-3 | Pedido + nombre + categoría y girar | Se conserva todo | OK: el `ViewModel` es el mismo objeto antes y después del giro |
 | P4-4 | Desplazar a la mitad y girar | Misma posición | OK: el estado de la `LazyColumn` se guarda con `rememberSaveable` internamente |
 | P4-5 | Croissant + filtro "Bebidas" | Oculto pero cuenta | OK: el total sigue incluyendo 1,50 € |

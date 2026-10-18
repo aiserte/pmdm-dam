@@ -277,7 +277,7 @@ Con esta sesión ya conocéis cuatro formas de guardar estado. Cada una sobreviv
 | `ViewModel` + `SavedStateHandle` | Sí | Sí | Sí | No |
 | Persistencia (DataStore, base de datos) | Sí | Sí | Sí | **Sí** (sesión 6 y UD4) |
 
-La fila del `ViewModel` tiene una trampa: sobrevive a los giros, pero **no** a que Android elimine la app en segundo plano para liberar memoria, porque en ese caso se destruye todo el proceso. Lo comprobaréis en la práctica con la opción *No conservar actividades* de la sesión 2. Para los datos que no deben perderse en ese caso, el `ViewModel` puede recibir un **`SavedStateHandle`**, un pequeño almacén que se guarda en el mismo `Bundle` que usa `rememberSaveable`.
+La fila del `ViewModel` tiene una trampa: sobrevive a los giros, pero **no** a que Android elimine la app en segundo plano para liberar memoria, porque en ese caso se destruye todo el proceso. Lo comprobaréis en la práctica con la opción *No conservar actividades* de la sesión 2, que simula esa situación: destruye la actividad en cuanto se sale de ella, sin que sea un giro, y el `ViewModel` se destruye con ella. Para los datos que no deben perderse en ese caso, el `ViewModel` puede recibir un **`SavedStateHandle`**, un pequeño almacén que se guarda en el mismo `Bundle` que usa `rememberSaveable`.
 
 <div class="callout-info">
 <strong>Regla práctica para elegir:</strong> el estado visual y local (un menú abierto) con <code>remember</code>; datos pequeños de un componente que deben sobrevivir a todo (el texto de un campo aislado) con <code>rememberSaveable</code>; el estado y la lógica de una pantalla, en su <code>ViewModel</code>; lo que el usuario espera encontrar al volver a abrir la app, en persistencia.
