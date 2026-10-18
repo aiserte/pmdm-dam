@@ -69,8 +69,8 @@ Sobre el criterio b): Jetpack Compose no usa las clases clásicas de Android bas
 
 1. [Anatomía de una app Compose y recursos]({{ '/unidades/ud3-bloque1-anatomia-compose/' | relative_url }}) — 2h
 2. [Ciclo de vida de la Activity, Logcat y estado]({{ '/unidades/ud3-bloque2-ciclo-vida-estado/' | relative_url }}) — 2h
-3. State hoisting, controles de entrada, diálogos y menús — 2h *(próximamente)*
-4. Listas y ViewModel — 2h *(próximamente)*
+3. [State hoisting, controles de entrada, diálogos y menús]({{ '/unidades/ud3-bloque3-hoisting-controles-dialogos/' | relative_url }}) — 2h
+4. [Listas eficientes y ViewModel]({{ '/unidades/ud3-bloque4-listas-viewmodel/' | relative_url }}) — 2h
 5. Navegación entre pantallas — 2h *(próximamente)*
 6. Preferencias con DataStore — 1h *(próximamente)*
 
@@ -78,6 +78,8 @@ Sobre el criterio b): Jetpack Compose no usa las clases clásicas de Android bas
 
 - Sesión 1 (Anatomía y recursos): [Cafetería del instituto: la carta — enunciado]({{ '/practicas/ud3-sesion1-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion1-practica-solucion/' | relative_url }})
 - Sesión 2 (Ciclo de vida y estado): [Cafetería del instituto: el pedido — enunciado]({{ '/practicas/ud3-sesion2-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion2-practica-solucion/' | relative_url }})
+- Sesión 3 (State hoisting, controles, diálogos y menús): [Cafetería del instituto: confirmar el pedido — enunciado]({{ '/practicas/ud3-sesion3-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion3-practica-solucion/' | relative_url }})
+- Sesión 4 (Listas y ViewModel): [Cafetería del instituto: carta completa y ViewModel — enunciado]({{ '/practicas/ud3-sesion4-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion4-practica-solucion/' | relative_url }})
 
 <div class="callout-info">
 Al terminar esta unidad serás capaz de construir una app Android de varias pantallas con Jetpack Compose, que reacciona a lo que hace el usuario, conserva su estado, muestra listas de datos y recuerda las preferencias del usuario entre ejecuciones.
