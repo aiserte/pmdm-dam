@@ -71,8 +71,8 @@ Sobre el criterio b): Jetpack Compose no usa las clases clásicas de Android bas
 2. [Ciclo de vida de la Activity, Logcat y estado]({{ '/unidades/ud3-bloque2-ciclo-vida-estado/' | relative_url }}) — 2h
 3. [State hoisting, controles de entrada, diálogos y menús]({{ '/unidades/ud3-bloque3-hoisting-controles-dialogos/' | relative_url }}) — 2h
 4. [Listas eficientes y ViewModel]({{ '/unidades/ud3-bloque4-listas-viewmodel/' | relative_url }}) — 2h
-5. Navegación entre pantallas — 2h *(próximamente)*
-6. Preferencias con DataStore — 1h *(próximamente)*
+5. [Navegación entre pantallas con Navigation Compose]({{ '/unidades/ud3-bloque5-navegacion/' | relative_url }}) — 2h
+6. [Preferencias del usuario con DataStore]({{ '/unidades/ud3-bloque6-datastore/' | relative_url }}) — 1h
 
 ## Prácticas por sesión
 
@@ -80,6 +80,8 @@ Sobre el criterio b): Jetpack Compose no usa las clases clásicas de Android bas
 - Sesión 2 (Ciclo de vida y estado): [Cafetería del instituto: el pedido — enunciado]({{ '/practicas/ud3-sesion2-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion2-practica-solucion/' | relative_url }})
 - Sesión 3 (State hoisting, controles, diálogos y menús): [Cafetería del instituto: confirmar el pedido — enunciado]({{ '/practicas/ud3-sesion3-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion3-practica-solucion/' | relative_url }})
 - Sesión 4 (Listas y ViewModel): [Cafetería del instituto: carta completa y ViewModel — enunciado]({{ '/practicas/ud3-sesion4-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion4-practica-solucion/' | relative_url }})
+- Sesión 5 (Navegación): [Cafetería del instituto: varias pantallas — enunciado]({{ '/practicas/ud3-sesion5-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion5-practica-solucion/' | relative_url }})
+- Sesión 6 (DataStore): [Cafetería del instituto: recordar al cliente — enunciado]({{ '/practicas/ud3-sesion6-practica-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud3-sesion6-practica-solucion/' | relative_url }})
 
 <div class="callout-info">
 Al terminar esta unidad serás capaz de construir una app Android de varias pantallas con Jetpack Compose, que reacciona a lo que hace el usuario, conserva su estado, muestra listas de datos y recuerda las preferencias del usuario entre ejecuciones.
