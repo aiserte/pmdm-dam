@@ -192,6 +192,8 @@ Después de girar (Activity nueva, PantallaCarta nueva):
 
 Por eso el pedido sobrevive al giro sin ningún `rememberSaveable`: la interfaz nueva no crea un pedido vacío, sino que recupera el objeto que ya tenía los datos.
 
+Más exactamente, `viewModel()` usa el almacén **del lugar donde se llama**. Por ahora siempre es el de la `Activity`; en la sesión 5 veremos que la navegación crea almacenes propios para cada pantalla.
+
 ### Cuánto vive: más que la `Activity`
 
 ```

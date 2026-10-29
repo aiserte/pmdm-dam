@@ -261,7 +261,7 @@ composable<Detalle> { entrada ->
 
 ### Pasar el id, no el objeto
 
-¿Por qué no pasar directamente el `Producto` entero, `Detalle(producto)`? Porque los argumentos se guardan en el mismo `Bundle` que usa `rememberSaveable`, que solo admite datos pequeños y sencillos, y porque deben poder **sobrevivir a que Android elimine la app** (apartado 5.9). La regla es:
+¿Por qué no pasar directamente el `Producto` entero, `Detalle(producto)`? Porque los argumentos se guardan en el mismo `Bundle` que usa `rememberSaveable` (el diccionario que custodia el sistema, explicado en el apartado 2.9 de la sesión 2), que solo admite datos pequeños y sencillos y tiene un límite de tamaño, y porque deben poder **sobrevivir a que Android elimine la app** (apartado 5.9). La regla es:
 
 <div class="callout-warning">
 <strong>Por la ruta solo viaja lo mínimo para identificar los datos</strong>, normalmente un id. La pantalla de destino busca los datos completos a partir de ese id (en nuestro caso, en el <code>ViewModel</code>; en la UD4, en la base de datos). Tipos válidos como argumento: <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>, <code>String</code>, <code>enum</code> y listas de ellos.
@@ -375,7 +375,7 @@ Parece lógico hacer lo mismo en `PantallaDetalle` y `PantallaResumen`. **Es un 
 
 ### La trampa: cada pantalla tendría su propio `ViewModel`
 
-En la sesión 4 vimos que `viewModel()` guarda el objeto en un almacén asociado a la `Activity`. Pero dentro de un `NavHost` cambia una cosa: **cada entrada de la pila tiene su propio almacén**. Si `viewModel()` se llama dentro de `composable<Detalle> { }`, el `ViewModel` se guarda en el almacén **de esa pantalla**: es un objeto nuevo, con el pedido vacío, y se destruye cuando se sale del detalle.
+Recordad que `viewModel()` usa el almacén **más cercano al sitio donde se llama**. Fuera del `NavHost`, el más cercano es el de la `Activity` (el único que había en la sesión 4); dentro de un `composable<...>`, es el de esa entrada de la pila, porque **cada entrada de la pila tiene su propio almacén**. Si `viewModel()` se llama dentro de `composable<Detalle> { }`, el `ViewModel` se guarda en el almacén **de esa pantalla**: es un objeto nuevo, con el pedido vacío, y se destruye cuando se sale del detalle.
 
 ```
 Si cada pantalla llama a viewModel():

@@ -337,6 +337,10 @@ var cantidad by rememberSaveable { mutableStateOf(0) }
 
 `rememberSaveable` funciona igual que `remember`, pero además **guarda el valor** antes de que la actividad se destruya y lo **restaura** en la actividad nueva. ¿Dónde lo guarda? En el `Bundle` que Android pasa a `onCreate(savedInstanceState: Bundle?)`: por eso en Logcat ese parámetro valía `null` al abrir la app y trae datos al girar.
 
+<div class="callout-info">
+<strong>¿Qué es el <code>Bundle</code>?</strong> Es un pequeño <strong>diccionario clave-valor</strong> (parecido a un <code>Map&lt;String, …&gt;</code>) que <strong>guarda el sistema</strong>, no la app. Antes de destruir la actividad, Android pide a la app que meta en él lo que quiere conservar; al crear la actividad nueva, se lo devuelve en <code>onCreate(savedInstanceState)</code>. Como lo custodia el sistema, fuera de la memoria de la app, sobrevive a los giros y también a que Android elimine la app en segundo plano, pero no a que el usuario la cierre. Solo admite tipos sencillos (números, textos, booleanos y listas de ellos) y tiene un <strong>límite de tamaño</strong>: lo recomendable es que no pase de unas decenas de KB, y si se supera el límite real (alrededor de 1 MB), la app se cierra con una <code>TransactionTooLargeException</code>. Por eso sirve para un número, un texto o un id, nunca para una lista de productos o una imagen. Volverá a aparecer en las sesiones 4 y 5.
+</div>
+
 | Situación | Variable normal | `remember` | `rememberSaveable` |
 |---|---|---|---|
 | Sobrevive a una recomposición | No | **Sí** | **Sí** |
