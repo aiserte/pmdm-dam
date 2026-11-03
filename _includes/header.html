@@ -1,7 +1,14 @@
 <header class="site-header" role="banner">
 
   <div class="wrapper">
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
+      {%- comment -%}
+      Robot de Android (CC BY 3.0, Google). La atribución obligatoria está en
+      _includes/footer.html. alt vacío: es decorativo, el título ya da el texto.
+      {%- endcomment -%}
+      <img class="site-title__logo" src="{{ '/assets/img/android-robot.png' | relative_url }}" alt="" width="36" height="22">
+      <span>{{ site.title | escape }}</span>
+    </a>
 
     <nav class="site-nav">
       <input type="checkbox" id="nav-trigger" class="nav-trigger" />

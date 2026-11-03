@@ -43,7 +43,7 @@
   ra: "RA2 (2/3)"
   horas: 7
   slug: ud4
-  disponible: false
+  disponible: true
 
 - id: UD5
   tipo: unidad

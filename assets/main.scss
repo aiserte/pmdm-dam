@@ -531,3 +531,39 @@ pre, code {
     }
   }
 }
+// =====================================================================
+// ===== Logo en la cabecera y atribución en el pie =====
+// _includes/header.html pone el robot de Android junto al título del
+// sitio; _includes/footer.html lleva la atribución CC BY 3.0 obligatoria.
+// =====================================================================
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-title__logo {
+  height: 22px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.site-footer {
+  border-top: 2px solid $color-primario-bg;
+  padding: 1.25rem 0 1.5rem;
+}
+
+.pie-sitio__modulo {
+  color: $color-texto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.pie-sitio__atribucion {
+  color: $color-texto-secundario;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  margin-bottom: 0.35rem;
+}
