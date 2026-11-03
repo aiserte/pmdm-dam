@@ -67,6 +67,8 @@ Un `Flow` es como una suscripción: en lugar de devolver **un** valor, va entreg
 
 En la UD4, Room también devuelve `Flow` y lo aprovecharemos para que la interfaz se actualice sola cuando cambien los datos. Hoy solo necesitamos leer una vez, al arrancar.
 
+Para ampliar el concepto de `Flow`, visita [Flujos de Kotlin en Android](https://developer.android.com/kotlin/flow?hl=es-419).
+
 ## 6.3 Añadir la dependencia
 
 En `gradle/libs.versions.toml`:
@@ -88,6 +90,12 @@ implementation(libs.androidx.datastore.preferences)
 Y *Sync Now*. Si Android Studio sugiere una versión más reciente, podéis aceptarla.
 
 ## 6.4 Crear el DataStore y sus claves
+
+`Context` es una clase abstracta de Android de la que heredan varias clases; las que usamos son `Activity` y `Application`. A tener en cuenta:
+
+- El `Context` es la puerta de la app al sistema: carpetas, recursos, servicios.
+- La `Activity` y la `Application` son `Context`. La primera muere al girar y la segunda vive toda la ejecución.
+- DataStore necesita un `Context` para saber dónde guardar el fichero, y le pasamos la `Application` porque el `ViewModel` no puede guardar la `Activity`.
 
 ```kotlin
 // Al principio del fichero, FUERA de cualquier clase
@@ -144,9 +152,158 @@ suspend fun borrar() {
 
 ## 6.6 Un repositorio de preferencias
 
-Podríamos usar el DataStore directamente desde el `ViewModel`, pero entonces el `ViewModel` tendría que saber qué claves existen, cómo se llaman en el fichero y qué valor usar si no hay nada guardado. Es mejor agrupar todo eso en una clase cuyo único trabajo sea **guardar y recuperar** las preferencias. A ese tipo de clase se le llama **repositorio**:
+En el apartado anterior hemos visto las tres operaciones de DataStore (leer, escribir y borrar) sueltas. Ahora toca decidir **dónde** se escriben en nuestra app. La respuesta es una clase nueva, el **repositorio**. Vamos a verlo despacio, porque es la primera vez que la app tiene una capa de datos propia.
+
+### El problema: un `ViewModel` que sabe demasiado
+
+Podríamos poner el código de DataStore directamente en el `PedidoViewModel`. Quedaría algo así:
 
 ```kotlin
+class PedidoViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val dataStore = application.dataStore
+    private val NOMBRE = stringPreferencesKey("nombre_cliente")
+    private val PARA_LLEVAR = booleanPreferencesKey("para_llevar")
+
+    fun enviarPedido() {
+        // ... vaciar el pedido ...
+        viewModelScope.launch {
+            dataStore.edit { prefs ->
+                prefs[NOMBRE] = uiState.nombre
+                prefs[PARA_LLEVAR] = uiState.paraLlevar
+            }
+        }
+    }
+    // ... y lo mismo para leer al arrancar y para borrar
+}
+```
+
+Funciona, pero el `ViewModel`, que ya se encarga del pedido, ahora también tiene que saber:
+
+1. **Qué claves existen** y cómo se llaman dentro del fichero (`"nombre_cliente"`, `"para_llevar"`).
+2. **Qué valor usar si no hay nada guardado** (`""`, `false`).
+3. **Cómo se guarda** físicamente la información (DataStore, `edit`, `Preferences`…).
+
+Es el mismo problema que tenía `PantallaCarta` en la sesión 4, cuando dibujaba, guardaba y decidía a la vez: una clase con demasiados trabajos. Y tiene una consecuencia práctica: si en la UD4 decidimos guardar estos datos en una base de datos, habría que reescribir el `ViewModel`.
+
+<div class="callout-info">
+<strong>La comparación con la cafetería de verdad.</strong> El encargado de caja (el <code>ViewModel</code>) no baja al almacén a buscar entre las estanterías: le pide al responsable del almacén (el <strong>repositorio</strong>) «dame los datos del cliente» o «guarda esto». Cómo están ordenadas las estanterías solo lo sabe el responsable del almacén. Si mañana cambian el almacén de sitio, la caja ni se entera.
+</div>
+
+### La idea: una clase que solo guarda y recupera
+
+Un **repositorio** es una clase cuyo único trabajo es **guardar y recuperar datos**, escondiendo dónde y cómo se guardan. Ofrece al resto de la app unas pocas operaciones con nombres claros, y nada más. Nuestro repositorio de preferencias ofrecerá exactamente tres cosas:
+
+| Lo que ofrece | Para qué |
+|---|---|
+| `preferencias` | Leer los datos guardados del cliente |
+| `guardar(nombre, paraLlevar)` | Guardar los datos del último pedido |
+| `borrar()` | Olvidar los datos guardados |
+
+Lo construimos en cinco pasos, en un fichero nuevo `data/PreferenciasRepository.kt` (el mismo en el que va la línea `val Context.dataStore ...` del apartado 6.4).
+
+### Paso 1: qué datos devuelve, la clase `PreferenciasCliente`
+
+```kotlin
+data class PreferenciasCliente(
+    val nombre: String = "",
+    val paraLlevar: Boolean = false
+)
+```
+
+En lugar de devolver dos valores sueltos, el repositorio los entrega **juntos** en una `data class`, igual que `PedidoUiState` agrupaba el estado del pedido. Los valores por defecto describen la situación "no hay nada guardado": nombre vacío y para tomar aquí.
+
+### Paso 2: la clase y lo que recibe
+
+```kotlin
+class PreferenciasRepository(private val dataStore: DataStore<Preferences>) {
+    // ...
+}
+```
+
+- El repositorio **no crea** el DataStore: lo **recibe** en el constructor. Quien lo crea le pasará el que ya existe; en nuestro caso será el `ViewModel`, con `PreferenciasRepository(application.dataStore)` (lo veremos en el apartado 6.7).
+- `private val` hace dos cosas a la vez: guarda el parámetro como propiedad de la clase y la deja **privada**. Nadie de fuera puede escribir `repositorio.dataStore`.
+- `DataStore<Preferences>` es el tipo del objeto: un DataStore que guarda **preferencias** (pares clave-valor).
+
+### Paso 3: las claves, escondidas dentro
+
+```kotlin
+    private object Claves {
+        val NOMBRE = stringPreferencesKey("nombre_cliente")
+        val PARA_LLEVAR = booleanPreferencesKey("para_llevar")
+    }
+```
+
+- `object` crea un objeto único (no se instancia con `Claves()`): es una forma cómoda de **agrupar constantes** con un nombre que se lee bien, `Claves.NOMBRE`.
+- `private` hace que solo el repositorio pueda usarlas. Así nadie más en la app puede escribir mal el nombre de una clave (por ejemplo, `"nombre"` en lugar de `"nombre_cliente"`) y acabar leyendo un valor que no existe.
+
+### Paso 4: leer, la propiedad `preferencias`
+
+Es la parte que más cuesta, así que vamos línea a línea:
+
+```kotlin
+    val preferencias: Flow<PreferenciasCliente> = dataStore.data.map { prefs ->
+        PreferenciasCliente(
+            nombre = prefs[Claves.NOMBRE] ?: "",
+            paraLlevar = prefs[Claves.PARA_LLEVAR] ?: false
+        )
+    }
+```
+
+1. **`dataStore.data`** es un `Flow<Preferences>`: cada vez que se lee el fichero (y cada vez que cambia), entrega **todas** las preferencias guardadas, como un mapa.
+2. **`.map { prefs -> ... }`** transforma cada uno de esos mapas en otra cosa. Dentro de la lambda, `prefs` es el mapa con todo lo guardado.
+3. **`prefs[Claves.NOMBRE]`** busca el nombre en el mapa. Si nunca se ha guardado, devuelve `null`, y **`?: ""`** (el operador Elvis de la UD2) pone en su lugar una cadena vacía. Lo mismo con `paraLlevar` y `false`.
+4. El resultado es un **`Flow<PreferenciasCliente>`**: quien lo use ya no ve claves ni mapas, solo objetos `PreferenciasCliente`.
+
+Esta tabla muestra qué entrega el `Flow` según lo que haya en el fichero:
+
+| Lo que hay en el fichero | Lo que entrega `preferencias` |
+|---|---|
+| Nada (primera vez que se abre la app) | `PreferenciasCliente(nombre = "", paraLlevar = false)` |
+| Después de `guardar("Ana", true)` | `PreferenciasCliente(nombre = "Ana", paraLlevar = true)` |
+| Después de `borrar()` | `PreferenciasCliente(nombre = "", paraLlevar = false)` |
+
+<div class="callout-warning">
+<strong>Declarar <code>preferencias</code> no lee el fichero.</strong> Esta línea es una <em>receta</em>: dice cómo convertir lo que haya en el fichero en un <code>PreferenciasCliente</code>. El fichero se lee de verdad cuando alguien pide un valor al <code>Flow</code>, por ejemplo con <code>first()</code> desde el <code>ViewModel</code> (apartado 6.7).
+</div>
+
+### Paso 5: escribir y borrar
+
+Son las mismas funciones del apartado 6.5, ahora dentro del repositorio y usando sus claves:
+
+```kotlin
+    suspend fun guardar(nombre: String, paraLlevar: Boolean) {
+        dataStore.edit { prefs ->
+            prefs[Claves.NOMBRE] = nombre
+            prefs[Claves.PARA_LLEVAR] = paraLlevar
+        }
+    }
+
+    suspend fun borrar() {
+        dataStore.edit { prefs -> prefs.clear() }
+    }
+```
+
+Son `suspend` porque escribir en el disco tarda (apartado 6.2): quien las llame tendrá que hacerlo desde una coroutine.
+
+### El fichero completo
+
+```kotlin
+package com.iesejemplo.cafeteria.data
+
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+// Un único DataStore para toda la app (apartado 6.4)
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "preferencias")
+
 data class PreferenciasCliente(
     val nombre: String = "",
     val paraLlevar: Boolean = false
@@ -166,13 +323,22 @@ class PreferenciasRepository(private val dataStore: DataStore<Preferences>) {
         )
     }
 
-    suspend fun guardar(nombre: String, paraLlevar: Boolean) { /* edit, como en 6.5 */ }
+    suspend fun guardar(nombre: String, paraLlevar: Boolean) {
+        dataStore.edit { prefs ->
+            prefs[Claves.NOMBRE] = nombre
+            prefs[Claves.PARA_LLEVAR] = paraLlevar
+        }
+    }
 
-    suspend fun borrar() { /* clear, como en 6.5 */ }
+    suspend fun borrar() {
+        dataStore.edit { prefs -> prefs.clear() }
+    }
 }
 ```
 
-Fuera del repositorio nadie ve las claves ni el tipo `Preferences`: solo un `Flow<PreferenciasCliente>` y dos funciones. Si en la UD4 decidimos guardar estos datos en otro sitio, solo cambiará esta clase. Con esto la app queda en **tres capas**:
+### Qué sabe cada capa
+
+Con el repositorio, la app queda organizada en **tres capas**, y cada una solo conoce a la de al lado:
 
 ```
 Interfaz (composables)  ──eventos──►  PedidoViewModel  ──►  PreferenciasRepository
@@ -180,6 +346,32 @@ Interfaz (composables)  ──eventos──►  PedidoViewModel  ──►  Pref
                                                                 ▼
                                                     DataStore (fichero en disco)
 ```
+
+| Capa | Qué sabe | Qué **no** sabe |
+|---|---|---|
+| Interfaz (composables) | Qué mostrar (`uiState`) y a qué función del `ViewModel` avisar | Que existe un repositorio o un fichero |
+| `PedidoViewModel` | Que el repositorio ofrece `preferencias`, `guardar` y `borrar` | Las claves, los valores por defecto, que se usa DataStore |
+| `PreferenciasRepository` | Las claves, los valores por defecto y cómo usar DataStore | Qué pantallas hay o cómo se dibujan |
+
+### Dos recorridos completos
+
+**Al enviar el pedido de Ana, para llevar:**
+
+1. El usuario pulsa "Enviar" en el diálogo: la interfaz llama a `pedidoViewModel.enviarPedido()`.
+2. El `ViewModel` vacía el pedido y llama a `preferenciasRepository.guardar("Ana", true)`.
+3. El repositorio traduce eso a claves (`nombre_cliente`, `para_llevar`) y lo escribe con `dataStore.edit`.
+4. DataStore guarda el fichero en el disco.
+
+**Al volver a abrir la app al día siguiente:**
+
+1. Se crea el `PedidoViewModel` y su bloque `init` pide `preferenciasRepository.preferencias.first()`.
+2. DataStore lee el fichero; el repositorio convierte su contenido en `PreferenciasCliente(nombre = "Ana", paraLlevar = true)`.
+3. El `ViewModel` copia esos dos valores en su `uiState`.
+4. La interfaz se recompone y el campo del nombre ya muestra "Ana".
+
+<div class="callout-info">
+<strong>Si te pierdes, quédate con esta frase: el <code>ViewModel</code> pide, el repositorio sabe cómo.</strong> El patrón repositorio es la forma recomendada por Google de organizar los datos de una app Android. En la UD4 crearemos otro repositorio con la misma idea, esta vez para una base de datos.
+</div>
 
 ## 6.7 Usar el repositorio desde el `ViewModel`
 
