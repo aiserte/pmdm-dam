@@ -561,9 +561,21 @@ pre, code {
   margin-bottom: 0.5rem;
 }
 
-.pie-sitio__atribucion {
+// Atribución del robot de Android (CC BY 3.0): texto obligatorio, pero
+// discreto. Letra muy pequeña y en el gris secundario, enlaces incluidos.
+.atribucion-android {
   color: $color-texto-secundario;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  margin-bottom: 0.35rem;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+
+  a,
+  a:visited {
+    color: $color-texto-secundario;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $color-acento;
+  }
 }
