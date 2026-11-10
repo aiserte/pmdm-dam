@@ -24,12 +24,13 @@ Este bloque se apoya en piezas de unidades anteriores y añade otras nuevas. Rep
 
 | Ya visto | Dónde | Para qué lo usamos hoy |
 |---|---|---|
-| Hilo principal y ANR | UD3, sesión 6 (6.2) | Por qué el disco no se toca desde el hilo que dibuja la interfaz |
-| `suspend`, `launch` | UD2, sesión 5; UD3, sesión 3 | Las operaciones de disco y de base de datos son funciones `suspend` |
+| Hilo principal y ANR | UD2, sesión 5 (5.1); UD3, sesión 6 (6.2) | Por qué el disco no se toca desde el hilo que dibuja la interfaz |
+| `suspend`, `launch` | UD2, sesión 5 (5.3 y 5.4); UD3, sesión 3 | Las operaciones de disco y de base de datos son funciones `suspend` |
 | `viewModelScope` | UD3, sesión 6 (6.7) | Lanzar el guardado y la carga desde el `ViewModel` |
+| Qué es un `Context` (`Activity` y `Application`) | UD3, sesión 6 (6.4) | Cada almacén se abre a partir de un `Context` |
 | `Application` y `AndroidViewModel` | UD3, sesión 6 (6.7) | El `ViewModel` necesita la `Application` para llegar a los almacenes |
 | Repositorio | UD3, sesión 6 (6.6) | Cada almacén tendrá su repositorio |
-| Almacén de `ViewModel` (*ViewModelStore*) | UD3, sesiones 4 (4.5) y 5 (5.8) | Decidir dónde vive la base de datos (apartado 1.12) |
+| Almacén de `ViewModel` de la `Activity` y de cada pantalla de la pila | UD3, sesiones 4 (4.5) y 5 (5.8) | Decidir dónde vive la base de datos (apartado 1.12) |
 | `Bundle` | UD3, sesión 2 (2.9) | Comparar qué sobrevive en cada sitio |
 | Plugin `@Serializable` | UD3, sesión 5 (5.3) | Convertir objetos a JSON sin tocar Gradle |
 | Interfaces y clases `abstract` | UD2, sesión 1 | Room nos pide una interfaz y una clase abstracta |
@@ -38,7 +39,7 @@ Este bloque se apoya en piezas de unidades anteriores y añade otras nuevas. Rep
 
 | Nuevo hoy | Apartado |
 |---|---|
-| Qué es un `Context` y por qué cada app tiene su carpeta privada | 1.1 |
+| Cuánto vive cada `Context` y por qué cada app tiene su carpeta privada | 1.1 |
 | *Dispatchers* y `withContext` | 1.3 |
 | JSON y serialización de objetos | 1.4 |
 | `try` como expresión y `return@etiqueta` | 1.5 |
@@ -51,11 +52,9 @@ Este bloque se apoya en piezas de unidades anteriores y añade otras nuevas. Rep
 
 ## 1.1 Dónde puede guardar datos una app
 
-### Concepto previo: qué es un `Context`
+### Repaso: el `Context` y cuánto vive cada uno
 
-En la UD3 usamos la `Application` como "un `Context` que representa a la app entera" sin detenernos en qué es un `Context`. Lo necesitamos ahora.
-
-Una app Android no puede acceder por su cuenta a los recursos del sistema: sus carpetas, sus textos de `strings.xml`, los servicios del móvil (red, sensores, notificaciones…). Todo eso se pide a través de un objeto **`Context`** (*contexto*), que es la **puerta de entrada de la app al sistema**. `Context` es una clase abstracta de Android y hay varias clases que heredan de ella; las que usamos son dos:
+En la UD3 (sesión 6, apartado 6.4) vimos que el **`Context`** es la **puerta de entrada de la app al sistema**: a través de él se piden las carpetas, los recursos de `strings.xml` y los servicios del móvil. Es una clase abstracta de Android, y las dos clases que heredan de ella y usamos son la `Activity` y la `Application`. Hoy vamos a abrir ficheros y bases de datos a partir de un `Context`, así que conviene tener claras sus diferencias:
 
 | Clase | Cuántas hay | Cuánto vive | Para qué usarla |
 |---|---|---|---|
