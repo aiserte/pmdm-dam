@@ -225,7 +225,7 @@ suspend fun cargar(): Ticket? = withContext(Dispatchers.IO) {
 }
 ```
 
-- `return@withContext null` sale **solo de la lambda** de `withContext` con el valor `null`, no de la función entera. Un `return` sin etiqueta dentro de una lambda no está permitido aquí; la etiqueta indica de qué bloque se sale. Es la misma sintaxis que se usa dentro de un `forEach`.
+- `return@withContext null` termina **el bloque entre llaves** de `withContext`, el trabajo que se hace en el hilo de IO, y hace que ese bloque devuelva `null`. Después, la ejecución vuelve al hilo desde el que se llamó a `cargar()` (en la cafetería, el hilo principal, porque se llama desde `viewModelScope.launch`) y sigue con lo que haya detrás del `withContext`. Aquí detrás no hay nada: todo el cuerpo de `cargar()` es ese `withContext` (fíjate en el `=` después de `Ticket?`), así que la función termina y devuelve ese mismo `null`. La etiqueta `@withContext` es obligatoria: un `return` sin etiqueta dentro de esta lambda no compila.
 - En Kotlin, `try` es una **expresión**: su valor es el de la última línea del bloque que se ejecute. Por eso la función devuelve el `Ticket` leído o el `null` de un `catch`.
 - El tipo de retorno es `Ticket?`: quien llama está **obligado** por el compilador a tratar el caso "no hay ticket".
 
@@ -665,4 +665,4 @@ La base de datos del emulador se creó con la estructura antigua, y Room se nieg
 
 ## Para la próxima sesión
 
-La cafetería guarda ahora el último ticket en un fichero y cada pedido en la base de datos, pero las dos cosas se solapan: el último ticket no deja de ser el pedido más reciente del historial. Y el historial solo guarda la cabecera de cada pedido, sin sus líneas, porque una lista no cabe en una columna. En la próxima sesión relacionaremos dos tablas (pedidos y líneas), haremos que la interfaz **se actualice sola** cuando cambie la base de datos y sustituiremos el fichero del ticket por una consulta: un buen ejemplo de por qué conviene tener los datos detrás de un repositorio.
+La cafetería guarda ahora el último ticket en un fichero y cada pedido en la base de datos, pero las dos cosas se solapan: el último ticket no deja de ser el pedido más reciente del historial. Y el historial solo guarda la cabecera de cada pedido, sin sus líneas, porque una lista no cabe en una columna. En la próxima sesión relacionaremos dos tablas (pedidos y líneas), haremos que la interfaz **se actualice sola** cuando cambie la base de datos, y todo ello sin tocar `PedidoViewModel`: un buen ejemplo de por qué conviene tener los datos detrás de un repositorio.

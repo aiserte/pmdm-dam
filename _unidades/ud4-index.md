@@ -62,15 +62,16 @@ El RA2 se reparte entre tres unidades (UD3, UD4 y UD5). En esta unidad se trabaj
 ## Bloques de esta unidad
 
 1. [Almacenamiento local: ficheros JSON y bases de datos con Room]({{ '/unidades/ud4-bloque1-ficheros-room/' | relative_url }}) — 3h (sesiones 1 y 2)
+2. [Room II: datos que se actualizan solos y relaciones entre tablas]({{ '/unidades/ud4-bloque2-room-flow-relaciones/' | relative_url }}) — 2h (sesión 3)
 
-<!-- Próximos bloques (se enlazarán al publicarlos):
-2. Room II: datos reactivos y relaciones — 2h (sesión 3)
+<!-- Próximo bloque (se enlazará al publicarlo):
 3. Repositorio, migraciones y documentación — 2h (sesión 4)
 -->
 
 ## Prácticas
 
 - Bloque 1 (Ficheros JSON y Room): [Cafetería del instituto: el último ticket y el historial — enunciado]({{ '/practicas/ud4-practica1-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud4-practica1-solucion/' | relative_url }})
+- Bloque 2 (Room II): [Cafetería del instituto: historial y detalle de pedidos — enunciado]({{ '/practicas/ud4-practica2-enunciado/' | relative_url }}) · [solución]({{ '/practicas/ud4-practica2-solucion/' | relative_url }})
 
 <div class="callout-info">
 Al terminar esta unidad serás capaz de elegir dónde y cómo guardar cada tipo de dato de una app Android, de guardar objetos en ficheros JSON y de construir una base de datos local con Room que la interfaz muestra y mantiene actualizada por sí sola.
